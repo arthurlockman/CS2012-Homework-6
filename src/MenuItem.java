@@ -10,4 +10,10 @@ public class MenuItem extends NameAssoc<Integer>
 	{
 		return this.data < other.data;
 	}
+
+	@Override
+	boolean equals(NameAssoc<Integer> other)
+	{
+		return this.name.equals(other.name) && (this.data == other.data);
+	}
 }

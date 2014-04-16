@@ -20,4 +20,6 @@ abstract class NameAssoc<DATA>
 
 	abstract boolean lessThan(NameAssoc<DATA> other);
 
+	abstract boolean equals(NameAssoc<DATA> other);
+
 }
