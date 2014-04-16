@@ -1,5 +1,3 @@
-import com.sun.media.sound.EmergencySoundbank;
-
 public class DataHeap<E extends NameAssoc> extends AbsIHeap
 {
 	DataHeap(E data, IHeap<E> left, IHeap<E> right)
@@ -10,7 +8,8 @@ public class DataHeap<E extends NameAssoc> extends AbsIHeap
 	@Override
 	public IHeap addElt(NameAssoc elt)
 	{
-		return this.merge(new DataHeap<E>((E)elt, new MtHeap<E>(), new MtHeap<E>()));
+		IHeap h = this.merge(new DataHeap<E>((E)elt, new MtHeap<E>(), new MtHeap<E>()));
+		return h;
 	}
 
 	@Override
@@ -22,13 +21,14 @@ public class DataHeap<E extends NameAssoc> extends AbsIHeap
 	@Override
 	public IHeap removeMinElt()
 	{
-		return this.left.merge(this.right);
+		IHeap h = this.left.merge(this.right);
+		return h;
 	}
 
 	@Override
 	public int height()
 	{
-		return 1 + left.height() + right.height();
+		return 1 + this.getLeft().height() + this.getRight().height();
 	}
 
 	@Override
@@ -36,20 +36,27 @@ public class DataHeap<E extends NameAssoc> extends AbsIHeap
 	{
 		E newRoot;
 		IHeap ST1, ST2, ST3;
+		IHeap H1 = this;
+		IHeap H2 = other;
 
-		if (this.findMinElt().lessThan(other.findMinElt()))
+		if (H1.findMinElt().lessThan(H2.findMinElt()))
+			newRoot =  (E)H1.findMinElt();
+		else
+			newRoot = (E)H2.findMinElt();
+
+		if (newRoot.equals(H1.findMinElt()))
 		{
-			newRoot = this.findMinElt();
-			ST1 = this.left;
-			ST2 = this.right;
-			ST3 = other;
+			newRoot = (E)H1.findMinElt();
+			ST1 = H1.getLeft();
+			ST2 = H2.getRight();
+			ST3 = H2;
 		}
 		else
 		{
-			newRoot = (E) other.findMinElt();
-			ST1 = other.getLeft();
-			ST2 = other.getRight();
-			ST3 = this;
+			newRoot = (E) H2.findMinElt();
+			ST1 = H2.getLeft();
+			ST2 = H2.getRight();
+			ST3 = H1;
 		}
 
 		if (ST1.height() >= ST2.height() && ST1.height() >= ST3.height())
