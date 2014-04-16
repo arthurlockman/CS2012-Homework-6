@@ -1,11 +1,11 @@
-public class MtHeap<E extends NameAssoc> implements IHeap
+public class MtHeap<E extends NameAssoc> extends AbsIHeap
 {
 	private E data = null;
 
-	MtHeap() {}
+	MtHeap() { super(null, null, null); }
 
 	@Override
-	public IHeap addElt()
+	public IHeap addElt(NameAssoc elt)
 	{
 		return null;
 	}
@@ -31,7 +31,7 @@ public class MtHeap<E extends NameAssoc> implements IHeap
 	@Override
 	public IHeap merge(IHeap other)
 	{
-		return null;
+		return other;
 	}
 
 	@Override

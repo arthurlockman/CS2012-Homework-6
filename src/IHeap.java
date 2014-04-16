@@ -1,6 +1,6 @@
 public interface IHeap<E extends NameAssoc>
 {
-	IHeap addElt();
+	IHeap addElt(E elt);
 	E findMinElt();
 	IHeap removeMinElt();
 	int height();
